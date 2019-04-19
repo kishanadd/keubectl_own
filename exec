@@ -1,0 +1,11 @@
+Create the deployment:
+
+kubectl create -f pref-deployment.yaml
+View the deployment:
+
+kubectl get deployments
+View which pods landed on which nodes:
+kubectl get pods -o wide
+
+Pref-deploy file is for Assigning a Pod to a Node
+Pod and Node Affinity Rules
