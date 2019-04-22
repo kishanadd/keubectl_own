@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-loadbalancer
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: nginx
+    
+    
+    
+    
+    kubectl get services
+Watch as an external port is created for a service:
+
+kubectl get services -w
+Look at the YAML for a service:
+
+kubectl get services kubeserve2 -o yaml
+Curl the external IP of the load balancer:
+
+curl http://[external-ip]
+View the annotation associated with a service:
+
+kubectl describe services kubeserve
+Set the annotation to route load balancer traffic local to the node:
+
+kubectl annotate service kubeserve2 externalTrafficPolicy=Local
+The YAML for an Ingress resource:
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: name-virtual-host-ingress
+spec:
+  rules:
+  - host: first.bar.com
+    http:
+      paths:
+      - backend:
+          serviceName: service1
+          servicePort: 80
+  - host: second.foo.com
+    http:
+      paths:
+      - backend:
+          serviceName: service2
+          servicePort: 80
+  - http:
+      paths:
+      - backend:
+          serviceName: service3
+          servicePort: 80
+Edit the ingress rules:
+
+kubectl edit ingress
+View the existing ingress rules:
+
+kubectl describe ingress
+Curl the hostname of your Ingress resource:
+
+curl http://kubeserve2.example.com
+Helpful Links
+Create an External Load Balancer
+Ingress
